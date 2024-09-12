@@ -1,0 +1,69 @@
+---
+global:
+  module: globals
+  global: true
+alarm:
+  module: alarm
+  class: Alarm
+  depencies: globals
+  chuck:
+    time: input_datetime.chuck_alarm_time
+    enabled: input_boolean.chuck_alarm_enabled
+    sequence:
+      - scene.chuck_bedroom_day
+      - scene.chuck_fan_day
+      - switch.printer
+      - switch.salt_rock
+      - switch.speakers
+      - switch.dell_monitor
+      - script.samsung_monitor_power_toggle
+      - switch.tv
+      - script.phllips_tv_power_toggle
+      - script.pioneer_receiver_power_toggle
+    media:
+      play_media: "media_player/play_media"
+      volume_set: "media_player/volume_set"
+      volume_up: "media_player/volume_up"
+      player: "media_player.chuck_echo"
+      content_id: "Shuffle Playlist Wake Up"
+      content_type: "APPLE_MUSIC"
+      volume: 0.0
+  ethan:
+    time: input_datetime.ethan_alarm_time
+    enabled: input_boolean.ethan_alarm_enabled
+    sequence: []
+dimmer:
+  module: dimmer
+  class: Dimmer
+  depencies: globals
+  dimmers:
+    - sensor.chuck_bedroom_dimmer_action
+    - sensor.chuck_bathroom_dimmer_action
+    - sensor.ethan_dimmer_action
+    - sensor.maddie_dimmer_action
+    - sensor.taylor_dimmer_action
+light_effect:
+  module: light_effect
+  class: LightEffect
+motion:
+  module: motion
+  class: Motion
+  depencies: globals
+  sensors:
+    - "binary_sensor.chuck_bathroom_motion_occupancy"
+    - "binary_sensor.chuck_closet_motion_occupancy"
+    - "binary_sensor.chuck_shower_motion_occupancy"
+porch:
+  module: porch
+  class: Porch
+presence:
+  module: presence
+  class: Presence
+  people:
+    - person.ethan
+    - person.maddie
+    - person.taylor
+#    - person.chuck
+#    - person.morgan
+  events:
+    - "tplink_router_new_device"
